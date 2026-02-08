@@ -5,7 +5,7 @@ A fintech-themed multiplier crash game designed for O-Week events. Players watch
 ## 🎯 Features
 
 - **Crash-style gameplay** with real-time multiplier updates
-- **4-tier prize system**: Stickers, Lanyards, Fans, and Bottles
+- **6-tier prize system**: Stickers, Lanyards, Fans, Shirt, Cards and Bottles
 - **Inventory management** with automatic tracking
 - **Smart prize allocation** ensure rare prizes stay rare
 - **Admin panel** for inventory control and statistics
@@ -58,10 +58,12 @@ A fintech-themed multiplier crash game designed for O-Week events. Players watch
 
 | Multiplier | Prize | Initial Stock |
 |------------|-------|---------------|
-| 2.6x+ | 🍾 Bottle | 50 |
-| 1.8x - 2.6x | 💨 Fan | 75 |
-| 1.2x - 1.8x | 🎫 Lanyard | 90 |
-| < 1.2x or Crash | ⭐ Sticker | Unlimited |
+| 4.2x+ | 🍾 Bottle | 50 |
+| 2.3x - 3.3x | 👕 SIG Shirt | 11 |
+| 3.3x - 3.75x | 🀄 SIG Card Deck | 24 |
+| 2.3x - 3.3x | 💨 Fan | 75 |
+| 1.5x - 2.3x | 🎫 Lanyard | 90 |
+| < 1.5x or Crash | ⭐ Sticker | Unlimited |
 
 ## ⚙️ Admin Panel
 
