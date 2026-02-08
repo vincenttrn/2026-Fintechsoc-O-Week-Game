@@ -10,7 +10,7 @@ A fintech-themed multiplier crash game designed for O-Week events. Players watch
 - **Smart prize allocation** ensure rare prizes stay rare
 - **Admin panel** for inventory control and statistics
 - **Beautiful animations** including confetti, screen shake, and smooth transitions
-- **Responsive design** - works on laptops, tablets, and phones
+- **Responsive design** - works on laptops (Windows and Mac (and probably linux too))
 - **Dark theme** with custom branding
 
 ## 🚀 Quick Start
