@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crash Game - O-Week 2026</title>
+  <link rel="icon" href="public/favicon.png" type="image/png">
+  <link rel="stylesheet" href="styles.css">
+  <script src="config.js"></script>
+</head>
+<body>
+  <!-- Welcome Screen -->
+  <div id="welcome-screen" class="screen active">
+    <div class="container">
+      <div class="logo-container">
+        <img src="public/assets/logo.png" alt="Society Logo" class="society-logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22%3E%3Crect fill=%22%23CA3528%22 width=%22200%22 height=%22200%22 rx=%2220%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2260%22 fill=%22white%22 font-family=%22Arial%22%3EFS%3C/text%3E%3C/svg%3E'">
+      </div>
+      <h1 class="title" id="society-name">Finance Society</h1>
+      <p class="subtitle" id="society-tagline">O-Week 2026</p>
+      
+      <div class="mascot-container">
+        <img src="public/assets/mascot.png" alt="Mascot" class="mascot" onerror="this.style.display='none'">
+      </div>
+
+      <div class="prize-showcase">
+        <h2>Win Amazing Prizes!</h2>
+        <p class="prize-showcase-hint">Click a prize to see a larger image</p>
+        <div class="prize-grid" id="home-prize-grid">
+          <div class="prize-card" role="button" tabindex="0">
+            <img src="public/assets/prizes/bottle.jpg" alt="Bottle" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22%3E%3Crect fill=%22%23FFD700%22 width=%22100%22 height=%22100%22 rx=%2210%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2240%22 fill=%22%23161616%22%3E🍾%3C/text%3E%3C/svg%3E'">
+            <p class="prize-name">Bottle</p>
+            <p class="prize-tier">4.2x+</p>
+          </div>
+          <div class="prize-card" role="button" tabindex="0">
+            <img src="public/assets/prizes/shirt.jpg" alt="SIG Shirt" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22%3E%3Crect fill=%22%23E91E63%22 width=%22100%22 height=%22100%22 rx=%2210%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2240%22 fill=%22white%22%3E👕%3C/text%3E%3C/svg%3E'">
+            <p class="prize-name">SIG Shirt</p>
+            <p class="prize-tier">3.75x - 4.2x</p>
+          </div>
+          <div class="prize-card" role="button" tabindex="0">
+            <img src="public/assets/prizes/deck.jpg" alt="SIG Card Deck" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22%3E%3Crect fill=%22%239C27B0%22 width=%22100%22 height=%22100%22 rx=%2210%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2240%22 fill=%22white%22%3E🃏%3C/text%3E%3C/svg%3E'">
+            <p class="prize-name">SIG Card Deck</p>
+            <p class="prize-tier">3.3x - 3.75x</p>
+          </div>
+          <div class="prize-card" role="button" tabindex="0">
+            <img src="public/assets/prizes/fan.jpg" alt="Fan" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22%3E%3Crect fill=%22%232196F3%22 width=%22100%22 height=%22100%22 rx=%2210%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2240%22 fill=%22white%22%3E💨%3C/text%3E%3C/svg%3E'">
+            <p class="prize-name">Fan</p>
+            <p class="prize-tier">2.3x - 3.3x</p>
+          </div>
+          <div class="prize-card" role="button" tabindex="0">
+            <img src="public/assets/prizes/lanyard.jpg" alt="Lanyard" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22%3E%3Crect fill=%22%234CAF50%22 width=%22100%22 height=%22100%22 rx=%2210%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2240%22 fill=%22white%22%3E🎫%3C/text%3E%3C/svg%3E'">
+            <p class="prize-name">Lanyard</p>
+            <p class="prize-tier">1.5x - 2.3x</p>
+          </div>
+          <div class="prize-card" role="button" tabindex="0">
+            <img class="sticker-rotate" src="public/assets/prizes/sticker1.jpg" alt="Sticker" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22%3E%3Crect fill=%22%23888%22 width=%22100%22 height=%22100%22 rx=%2210%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2240%22 fill=%22white%22%3E⭐%3C/text%3E%3C/svg%3E'">
+            <p class="prize-name">Sticker</p>
+            <p class="prize-tier">&lt; 1.5x</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prize lightbox (click a prize on home to view larger) -->
+      <div id="prize-lightbox" class="prize-lightbox" aria-hidden="true">
+        <div class="prize-lightbox-backdrop"></div>
+        <div class="prize-lightbox-content">
+          <button type="button" class="prize-lightbox-close" aria-label="Close">×</button>
+          <img id="prize-lightbox-img" src="" alt="" class="prize-lightbox-img">
+          <p class="prize-lightbox-name" id="prize-lightbox-name"></p>
+          <p class="prize-lightbox-tier" id="prize-lightbox-tier"></p>
+        </div>
+      </div>
+
+      <button class="btn-primary btn-large" onclick="startGame()">
+        🎮 START PLAYING
+      </button>
+
+      <button class="btn-secondary" onclick="showAdmin()">
+        ⚙️ Admin Panel
+      </button>
+    </div>
+  </div>
+
+  <!-- Game Screen -->
+  <div id="game-screen" class="screen">
+    <div class="game-container">
+      <div class="game-header">
+        <div class="recent-wins">
+          <div class="recent-wins-title">Last 5 won</div>
+          <div class="recent-wins-list">
+            <div class="recent-win-item" id="recent-win-0"><img class="recent-win-img" src="" alt="" style="display:none"><span class="recent-win-name">—</span></div>
+            <div class="recent-win-item" id="recent-win-1"><img class="recent-win-img" src="" alt="" style="display:none"><span class="recent-win-name">—</span></div>
+            <div class="recent-win-item" id="recent-win-2"><img class="recent-win-img" src="" alt="" style="display:none"><span class="recent-win-name">—</span></div>
+            <div class="recent-win-item" id="recent-win-3"><img class="recent-win-img" src="" alt="" style="display:none"><span class="recent-win-name">—</span></div>
+            <div class="recent-win-item" id="recent-win-4"><img class="recent-win-img" src="" alt="" style="display:none"><span class="recent-win-name">—</span></div>
+          </div>
+        </div>
+        <button class="btn-secondary btn-small" onclick="returnHome()">🏠 Home</button>
+      </div>
+
+      <div class="game-board">
+        <!-- Live Prize Sidebar -->
+        <div class="prize-sidebar">
+          <div class="prize-sidebar-title">Current Prize</div>
+          <div class="prize-tier-item" id="tier-bottle" data-tier="bottle">
+            <div class="prize-tier-icon"><img src="public/assets/prizes/bottle.jpg" alt="Bottle"></div>
+            <div class="prize-tier-info">
+              <div class="prize-tier-name">Bottle</div>
+              <div class="prize-tier-range">4.2x+</div>
+            </div>
+          </div>
+          <div class="prize-tier-item" id="tier-shirt" data-tier="shirt">
+            <div class="prize-tier-icon"><img src="public/assets/prizes/shirt.jpg" alt="SIG Shirt"></div>
+            <div class="prize-tier-info">
+              <div class="prize-tier-name">SIG Shirt</div>
+              <div class="prize-tier-range">3.75x - 4.2x</div>
+            </div>
+          </div>
+          <div class="prize-tier-item" id="tier-deck" data-tier="deck">
+            <div class="prize-tier-icon"><img src="public/assets/prizes/deck.jpg" alt="Card Deck"></div>
+            <div class="prize-tier-info">
+              <div class="prize-tier-name">Card Deck</div>
+              <div class="prize-tier-range">3.3x - 3.75x</div>
+            </div>
+          </div>
+          <div class="prize-tier-item" id="tier-fan" data-tier="fan">
+            <div class="prize-tier-icon"><img src="public/assets/prizes/fan.jpg" alt="Fan"></div>
+            <div class="prize-tier-info">
+              <div class="prize-tier-name">Fan</div>
+              <div class="prize-tier-range">2.3x - 3.3x</div>
+            </div>
+          </div>
+          <div class="prize-tier-item" id="tier-lanyard" data-tier="lanyard">
+            <div class="prize-tier-icon"><img src="public/assets/prizes/lanyard.jpg" alt="Lanyard"></div>
+            <div class="prize-tier-info">
+              <div class="prize-tier-name">Lanyard</div>
+              <div class="prize-tier-range">1.5x - 2.3x</div>
+            </div>
+          </div>
+          <div class="prize-tier-item active" id="tier-sticker" data-tier="sticker">
+            <div class="prize-tier-icon"><img class="sticker-rotate" src="public/assets/prizes/sticker1.jpg" alt="Sticker"></div>
+            <div class="prize-tier-info">
+              <div class="prize-tier-name">Sticker</div>
+              <div class="prize-tier-range">&lt; 1.5x</div>
+            </div>
+          </div>
+        </div>
+
+        <canvas id="game-canvas"></canvas>
+        <div class="multiplier-display" id="multiplier-display">
+          <span class="multiplier-value" id="multiplier-value">1.00x</span>
+        </div>
+        <div class="crash-overlay" id="crash-overlay">
+          <div class="crash-text">💥 CRASH! 💥</div>
+        </div>
+      </div>
+
+      <div class="game-controls">
+        <div class="status-text" id="status-text">Press START to begin</div>
+        <button class="btn-primary btn-large" id="action-btn" onclick="handleAction()">
+          START ROUND
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results Screen -->
+  <div id="results-screen" class="screen">
+    <div class="container">
+      <div class="confetti-container" id="confetti-container"></div>
+      
+      <h1 class="result-title" id="result-title">Congratulations!</h1>
+      
+      <div class="result-multiplier">
+        <span class="result-label">Cashed Out At</span>
+        <span class="result-value" id="result-multiplier">1.00x</span>
+      </div>
+
+      <div class="prize-won">
+        <img id="prize-image" src="" alt="Prize" class="prize-image-large">
+        <h2 class="prize-won-text">You Won:</h2>
+        <h1 class="prize-name-large" id="prize-name-large">Sticker</h1>
+      </div>
+
+      <div class="result-message" id="result-message">
+        Please collect your prize from the stall!
+      </div>
+
+      <button class="btn-primary btn-large" onclick="returnHome()">
+        🏠 Return Home
+      </button>
+    </div>
+  </div>
+
+  <!-- Admin Panel -->
+  <div id="admin-screen" class="screen">
+    <div class="container">
+      <h1 class="title">Admin Panel</h1>
+      
+      <div class="admin-section">
+        <h2>Current Inventory</h2>
+        <div class="inventory-grid">
+          <div class="inventory-item">
+            <label>🍾 Bottles</label>
+            <input type="number" id="admin-bottle" min="0" value="50">
+          </div>
+          <div class="inventory-item">
+            <label>👕 SIG Shirts</label>
+            <input type="number" id="admin-shirt" min="0" value="11">
+          </div>
+          <div class="inventory-item">
+            <label>🃏 SIG Card Decks</label>
+            <input type="number" id="admin-deck" min="0" value="24">
+          </div>
+          <div class="inventory-item">
+            <label>💨 Fans</label>
+            <input type="number" id="admin-fan" min="0" value="75">
+          </div>
+          <div class="inventory-item">
+            <label>🎫 Lanyards</label>
+            <input type="number" id="admin-lanyard" min="0" value="90">
+          </div>
+          <div class="inventory-item">
+            <label>⭐ Stickers</label>
+            <input type="number" id="admin-sticker" min="0" value="999">
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-section">
+        <h2>Statistics</h2>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <span class="stat-label">Total Games</span>
+            <span class="stat-value" id="stat-total">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Bottles Given</span>
+            <span class="stat-value" id="stat-bottles">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Shirts Given</span>
+            <span class="stat-value" id="stat-shirts">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Card Decks Given</span>
+            <span class="stat-value" id="stat-decks">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Fans Given</span>
+            <span class="stat-value" id="stat-fans">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Lanyards Given</span>
+            <span class="stat-value" id="stat-lanyards">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Stickers Given</span>
+            <span class="stat-value" id="stat-stickers">0</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-actions">
+        <button class="btn-primary" onclick="saveInventoryFromAdmin()">💾 Save Inventory</button>
+        <button class="btn-warning" onclick="resetStats()">🔄 Reset Statistics</button>
+        <button class="btn-secondary" onclick="closeAdmin()">← Back</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
