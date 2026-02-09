@@ -553,14 +553,15 @@ function crash() {
 }
 
 function getPrizeTypeForMultiplier(multiplier) {
-  if (multiplier >= CONFIG.prizes.bottle.min && multiplier < CONFIG.prizes.bottle.max) {
-    return 'bottle';
-  } else if (multiplier >= CONFIG.prizes.shirt.min && multiplier < CONFIG.prizes.shirt.max) {
+  // Check in order from highest to lowest
+  if (multiplier >= CONFIG.prizes.shirt.min && multiplier < CONFIG.prizes.shirt.max) {
     return 'shirt';
   } else if (multiplier >= CONFIG.prizes.deck.min && multiplier < CONFIG.prizes.deck.max) {
     return 'deck';
   } else if (multiplier >= CONFIG.prizes.fan.min && multiplier < CONFIG.prizes.fan.max) {
     return 'fan';
+  } else if (multiplier >= CONFIG.prizes.bottle.min && multiplier < CONFIG.prizes.bottle.max) {
+    return 'bottle';
   } else if (multiplier >= CONFIG.prizes.lanyard.min && multiplier < CONFIG.prizes.lanyard.max) {
     return 'lanyard';
   } else {
@@ -572,7 +573,7 @@ function determinePrize(multiplier) {
   let prizeType = getPrizeTypeForMultiplier(multiplier);
 
   // If tier is out of stock, upgrade to the next higher tier
-  while (inventory[prizeType] <= 0 && prizeType !== 'bottle') {
+  while (inventory[prizeType] <= 0 && prizeType !== 'shirt') {
     prizeType = upgradePrize(prizeType);
   }
 
@@ -611,9 +612,9 @@ function advanceStickerRotation() {
   applyStickerRotation();
 }
 
-/** Next tier up (e.g. sticker → lanyard → … → bottle). Bottle stays bottle. */
+/** Next tier up (e.g. sticker → lanyard → … → shirt). Shirt stays shirt. */
 function upgradePrize(prizeType) {
-  const hierarchy = ['sticker', 'lanyard', 'fan', 'deck', 'shirt', 'bottle'];
+  const hierarchy = ['sticker', 'lanyard', 'bottle', 'fan', 'deck', 'shirt'];
   const currentIndex = hierarchy.indexOf(prizeType);
   return hierarchy[Math.min(currentIndex + 1, hierarchy.length - 1)];
 }
@@ -935,19 +936,19 @@ function updateMultiplierDisplay(multiplier) {
     } else {
       display.textContent = multiplier.toFixed(2) + 'x';
       
-      // Color based on multiplier
+      // Color based on multiplier (new order: sticker < lanyard < bottle < fan < deck < shirt)
       if (multiplier < CONFIG.prizes.lanyard.min) {
         display.style.color = CONFIG.prizes.sticker.color;
-      } else if (multiplier < CONFIG.prizes.fan.min) {
+      } else if (multiplier < CONFIG.prizes.bottle.min) {
         display.style.color = CONFIG.prizes.lanyard.color;
+      } else if (multiplier < CONFIG.prizes.fan.min) {
+        display.style.color = CONFIG.prizes.bottle.color;
       } else if (multiplier < CONFIG.prizes.deck.min) {
         display.style.color = CONFIG.prizes.fan.color;
       } else if (multiplier < CONFIG.prizes.shirt.min) {
         display.style.color = CONFIG.prizes.deck.color;
-      } else if (multiplier < CONFIG.prizes.bottle.min) {
-        display.style.color = CONFIG.prizes.shirt.color;
       } else {
-        display.style.color = CONFIG.prizes.bottle.color;
+        display.style.color = CONFIG.prizes.shirt.color;
       }
     }
   }
@@ -962,17 +963,17 @@ function updatePrizeTierHighlight(multiplier) {
     item.classList.remove('active');
   });
   
-  // Determine current tier and highlight it
+  // Determine current tier and highlight it (new order: sticker < lanyard < bottle < fan < deck < shirt)
   let currentTier = 'sticker'; // default
   
-  if (multiplier >= CONFIG.prizes.bottle.min) {
-    currentTier = 'bottle';
-  } else if (multiplier >= CONFIG.prizes.shirt.min) {
+  if (multiplier >= CONFIG.prizes.shirt.min) {
     currentTier = 'shirt';
   } else if (multiplier >= CONFIG.prizes.deck.min) {
     currentTier = 'deck';
   } else if (multiplier >= CONFIG.prizes.fan.min) {
     currentTier = 'fan';
+  } else if (multiplier >= CONFIG.prizes.bottle.min) {
+    currentTier = 'bottle';
   } else if (multiplier >= CONFIG.prizes.lanyard.min) {
     currentTier = 'lanyard';
   } else {

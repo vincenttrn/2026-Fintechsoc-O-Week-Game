@@ -5,13 +5,14 @@ A fintech-themed multiplier crash game designed for O-Week events. Players watch
 ## 🎯 Features
 
 - **Crash-style gameplay** with real-time multiplier updates
-- **6-tier prize system**: Stickers, Lanyards, Fans, Shirt, Cards and Bottles
+- **6-tier prize system**: Stickers, Lanyards, Bottles, Fans, Card Decks, and Shirts (highest prize)
 - **Inventory management** with automatic tracking
 - **Smart prize allocation** ensure rare prizes stay rare
 - **Admin panel** for inventory control and statistics
 - **Beautiful animations** including confetti, screen shake, and smooth transitions
 - **Responsive design** - works on laptops (Windows and Mac (and probably linux too))
 - **Dark theme** with custom branding
+- **Optimized crash probability** - game is more likely to progress past lanyards for better player experience
 
 ## 🚀 Quick Start
 # How to Run the Crash Game
@@ -56,12 +57,14 @@ A fintech-themed multiplier crash game designed for O-Week events. Players watch
 
 ### Prize Tiers
 
+**Prize Order (Highest to Lowest):**
+
 | Multiplier | Prize | Initial Stock |
 |------------|-------|---------------|
-| 4.2x+ | 🍾 Bottle | 50 |
-| 2.3x - 3.3x | 👕 SIG Shirt | 11 |
-| 3.3x - 3.75x | 🀄 SIG Card Deck | 24 |
-| 2.3x - 3.3x | 💨 Fan | 75 |
+| 4.2x+ | 👕 SIG Shirt | 11 |
+| 3.75x - 4.2x | 🃏 SIG Card Deck | 24 |
+| 3.3x - 3.75x | 💨 Fan | 75 |
+| 2.3x - 3.3x | 🍾 Bottle | 50 |
 | 1.5x - 2.3x | 🎫 Lanyard | 90 |
 | < 1.5x or Crash | ⭐ Sticker | Unlimited |
 
@@ -86,12 +89,13 @@ Across different devices or days, feel free to adjust count of current inventory
 
 ### Game Mechanics
 
-- **Update frequency**: 150ms (configurable)
-- **Crash distribution**: 
-  - 60% chance: 1.0x - 2.0x
-  - 30% chance: 2.0x - 4.0x
-  - 10% chance: 4.0x+
+- **Update frequency**: 60ms (configurable)
+- **Crash distribution** (optimized to make it easier to progress past lanyards): 
+  - 50% chance: 1.0x - 2.0x
+  - 35% chance: 2.0x - 4.0x
+  - 15% chance: 4.0x+
 - **Inventory-aware rigging**: Automatically reduces crash points when prize inventory is low
+- **Prize hierarchy**: Shirt (highest) → Card Deck → Fan → Bottle → Lanyard → Sticker (lowest)
 
 ### Browser Compatibility
 
@@ -132,12 +136,16 @@ In `config.js`, modify the prize multiplier ranges:
 
 ```javascript
 prizes: {
-  sticker: { min: 0, max: 1.19, name: "Sticker", color: "#888" },
-  lanyard: { min: 1.2, max: 1.79, name: "Lanyard", color: "#4CAF50" },
-  fan: { min: 1.8, max: 2.59, name: "Fan", color: "#2196F3" },
-  bottle: { min: 2.6, max: Infinity, name: "Bottle", color: "#FFD700" }
+  sticker: { min: 0, max: 1.49, name: "Sticker", color: "#888" },
+  lanyard: { min: 1.5, max: 2.29, name: "Lanyard", color: "#4CAF50" },
+  bottle: { min: 2.3, max: 3.29, name: "Bottle", color: "#FFD700" },
+  fan: { min: 3.3, max: 3.74, name: "Fan", color: "#2196F3" },
+  deck: { min: 3.75, max: 4.19, name: "SIG Card Deck", color: "#9C27B0" },
+  shirt: { min: 4.2, max: Infinity, name: "SIG Shirt", color: "#E91E63" }
 }
 ```
+
+**Note:** Prize order is: Shirt (highest) → Card Deck → Fan → Bottle → Lanyard → Sticker (lowest)
 
 ### Change Colors
 
@@ -162,13 +170,17 @@ Control how aggressively the game protects rare prizes:
 rigging: {
   enabled: true,
   inventoryProtectionFactor: {
-    bottle: 3.0,   // Very rare (higher = more rare)
-    fan: 2.0,      // Medium rare
-    lanyard: 1.2,  // Slightly rare
-    sticker: 1.0   // No protection
+    shirt: 5.0,   // Highest prize - extremely rare (higher = more rare)
+    deck: 4.2,    // Second highest - very rare
+    fan: 3.5,     // Third - rare
+    bottle: 3.5,  // Fourth - rare
+    lanyard: 2.0, // Fifth - moderate
+    sticker: 1.0  // No protection
   }
 }
 ```
+
+**Note:** Protection factors are ordered by prize hierarchy (highest to lowest)
 
 
 
@@ -193,6 +205,10 @@ rigging: {
 **Running out of prizes too quickly?**
 - Increase the inventory protection factors in `config.js`
 - The game will automatically make rare prizes even more rare as stock depletes
+
+**Want to adjust how often players progress past lanyards?**
+- Modify `crashWeightLow`, `crashWeightMed`, and `crashWeightHigh` in `config.js`
+- Lower `crashWeightLow` and higher `crashWeightMed`/`crashWeightHigh` makes it easier to reach higher multipliers
 
 ## 📤 Files
 

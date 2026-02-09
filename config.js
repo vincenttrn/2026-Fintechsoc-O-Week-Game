@@ -12,20 +12,20 @@ const CONFIG = {
     minRoundDuration: 3000,
     maxRoundDuration: 20000,
     volatilityPerSecond: 0.45, // GBM sigma (per-second); higher = wilder swings
-    crashWeightLow: 0.75,
-    crashWeightMed: 0.20,
-    crashWeightHigh: 0.05
+    crashWeightLow: 0.50,      // Reduced from 0.75 to make it easier to go past lanyards
+    crashWeightMed: 0.35,      // Increased from 0.20
+    crashWeightHigh: 0.15      // Increased from 0.05
   },
 
-  // Prize tiers (multiplier thresholds) - ADJUSTED FOR HARDER PRIZES
-  // Order: sticker < lanyard < fan < deck < shirt < bottle
+  // Prize tiers (multiplier thresholds) - REORDERED: shirt (highest), deck, fan, bottle, lanyard, sticker
+  // Order: sticker < lanyard < bottle < fan < deck < shirt
   prizes: {
     sticker: { min: 0, max: 1.49, name: "Sticker", color: "#888" },           // EASIEST
     lanyard: { min: 1.5, max: 2.29, name: "Lanyard", color: "#4CAF50" },       // HARDER
-    fan: { min: 2.3, max: 3.29, name: "Fan", color: "#2196F3" },               // HARDER
-    deck: { min: 3.3, max: 3.74, name: "SIG Card Deck", color: "#9C27B0" },   // RARER (24 decks)
-    shirt: { min: 3.75, max: 4.19, name: "SIG Shirt", color: "#E91E63" },     // RARER (11 shirts)
-    bottle: { min: 4.2, max: Infinity, name: "Bottle", color: "#FFD700" }       // RAREST
+    bottle: { min: 2.3, max: 3.29, name: "Bottle", color: "#FFD700" },         // MOVED DOWN
+    fan: { min: 3.3, max: 3.74, name: "Fan", color: "#2196F3" },               // MOVED UP
+    deck: { min: 3.75, max: 4.19, name: "SIG Card Deck", color: "#9C27B0" },   // MOVED UP (24 decks)
+    shirt: { min: 4.2, max: Infinity, name: "SIG Shirt", color: "#E91E63" }     // HIGHEST (11 shirts)
   },
 
   // Initial inventory (editable)
@@ -38,17 +38,17 @@ const CONFIG = {
     bottle: 50
   },
 
-  // Rigging configuration - INCREASED PROTECTION (HARDER PRIZES)
+  // Rigging configuration - ADJUSTED FOR NEW PRIZE ORDER
   rigging: {
     enabled: true,
     // Adjust crash probability based on remaining inventory
     // Higher values = more aggressive inventory protection
     inventoryProtectionFactor: {
-      bottle: 5.0,  // EXTREMELY RARE
-      shirt: 4.2,   // VERY RARE (11 shirts)
-      deck: 3.5,    // RARE (24 decks)
-      fan: 3.5,     // VERY RARE
-      lanyard: 2.0, // RARE
+      shirt: 5.0,   // HIGHEST PRIZE - EXTREMELY RARE (11 shirts)
+      deck: 4.2,    // SECOND HIGHEST - VERY RARE (24 decks)
+      fan: 3.5,     // THIRD - RARE
+      bottle: 3.5,  // FOURTH - RARE
+      lanyard: 2.0, // FIFTH - MODERATE
       sticker: 1.0  // No protection
     }
   },
